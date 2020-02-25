@@ -1,10 +1,6 @@
 if(process.env.NODE_ENV !== 'production') {
-    require('dotenv').parse()
+    require('dotenv').config()
 }
-
-//stack overflow solution to error
-const routes=require('./routes/api.tsx')
-//
 
 const express = require('express')
 const app = express()
@@ -18,9 +14,11 @@ app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
 
+
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true 
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
 })
 const db = mongoose.connection
 db.on('error', error => console.error(error))
